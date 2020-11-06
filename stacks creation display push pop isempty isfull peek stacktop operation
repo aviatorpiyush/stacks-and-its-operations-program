@@ -1,0 +1,120 @@
+#include<iostream>
+using namespace std;
+struct stack
+{
+    int size;
+    int top;
+    int *s;
+
+};
+void create(struct stack *st)
+{
+    cout<<"enter size";
+    cin>>st->size;
+    st->top=-1;
+    st->s=new int [sizeof(st->size)];
+
+}
+
+void display(struct stack st)
+{
+    int i;
+    for(i=st.top;i>=0;i--)
+    {
+        cout<<st.s[i]<<" ";
+    }
+    cout<<"\n";
+}
+void push(struct stack *st,int x)
+{
+    if(st->top==st->size-1)
+    {
+        cout<<"stack overflow";
+    }
+    else
+    {
+        st->top++;
+        st->s[st->top]=x;
+    }
+}
+int pop(struct stack *st)
+{
+    int x=-1;
+    if(st->top==-1)
+    {
+        cout<<"stack underflow";
+
+    }
+    else
+    {
+        x=st->s[st->top];
+        st->top--;
+    }
+    return x;
+}
+int peek(struct stack st,int index)
+{
+    int x=-1;
+    if(st.top-index+1<0)
+        cout<<"innvalid index";
+    else
+    {
+        x=st.s[st.top - index+1];
+    }
+    return x;
+
+}
+ int isempty(struct stack st)
+ {
+     if(st.top==-1)
+        return 1;
+     else
+        return 0;
+ }
+
+ int isfull(struct stack st)
+ {
+     return st.top==st.size-1;
+
+ }
+
+ int stacktop(struct stack st)
+ {
+
+     if(!isempty(st))
+        return st.s[st.top];
+     else
+        return -1;
+
+ }
+
+ int main()
+ {
+     struct stack st;
+     create(&st);
+     push(&st,3);
+     push(&st,5);
+     push(&st,7);
+     push(&st,9);
+     push(&st,11);
+     push(&st,13);
+     push(&st,15);
+
+     cout<<peek(st,1);
+     cout<<"\n";
+     display(st);
+     cout<<pop(&st)<<" ";
+     cout<<pop(&st)<<" ";
+     cout<<pop(&st)<<" ";
+     cout<<"\n ";
+     display(st);
+
+     cout<<"\n";
+     cout<<stacktop(st);
+     cout<<"\n";
+     cout<<isfull(st);
+     cout<<"\n";
+     cout<<isempty(st);
+     return 0;
+
+ }
