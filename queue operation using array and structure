@@ -1,0 +1,92 @@
+#include<iostream>
+using namespace std;
+struct queue
+{
+int size;
+int front;
+int rear;
+int *qu;
+};
+void create(struct queue *q,int size)
+{
+    q->size=size;
+    q->front=q->rear=-1;
+    q->qu=new int [(q->size)*sizeof(int)];
+
+}
+void enqueue(struct queue *q,int x)
+{
+    if(q->rear==q->size-1)
+        cout<<"queue is full";
+    else
+    {
+        q->rear++;          // to make rear point to next index
+        q->qu[q->rear]=x;
+    }
+}
+
+int dequeue(struct queue *q)
+{
+    int x=-1;
+    if(q->front==q->rear)
+        cout<<"queue is empty";
+    else
+    {
+        q->front++;
+        x=q->qu[q->front];
+    }
+    return x;
+}
+void display(struct queue q)
+{
+    int i;
+    for(i=q.front+1;i<=q.rear;i++)
+        cout<<q.qu[i]<<" ";
+
+}
+
+int isfull(struct queue q)
+{
+    if(q.rear==q.size-1)
+        return 1;
+    else
+        return 0;
+
+}
+int isempty(struct queue q)
+{
+    if(q.front==q.rear)
+        return 1;
+    else
+        return 0;
+}
+int max(struct queue q)
+{
+    int x=-1;
+    for(int i=q.front+1;i<=q.rear;i++)
+    {
+        if(q.qu[i]>=x)
+            x=q.qu[i];
+
+    }
+    return x;
+}
+
+int main()
+{
+    struct queue q;
+    cout<<"enter size";
+    cin>>q.size;
+    create(&q,q.size);
+    enqueue(&q,5);
+    enqueue(&q,10);
+    enqueue(&q,15);
+
+
+    display(q);
+    cout<<"\n";
+    cout<<isfull(q)<<"\n";
+    cout<<isempty(q)<<"\n";
+    cout<<max(q)<<"\n";
+    return 0;
+}
